@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="WebApp_ID" version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+    <display-name>stat_admin</display-name>
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+        <welcome-file>index.htm</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>default.html</welcome-file>
+        <welcome-file>default.htm</welcome-file>
+        <welcome-file>default.jsp</welcome-file>
+    </welcome-file-list>
+
+    <servlet>
+        <display-name>applInit.srv</display-name>
+        <servlet-name>applInit.srv</servlet-name>
+        <servlet-class>ru.zapoebad.pwd.admin.ApplInitServlet</servlet-class>
+        <init-param>
+            <param-name>property_file_name</param-name>
+            <param-value>site.properties</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet>
+        <servlet-name>PortalAjaxServlet</servlet-name>
+        <servlet-class>ru.zapoebad.pwd.ajax.PortalAjaxServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PortalAjaxServlet</servlet-name>
+        <url-pattern>/ajax/*</url-pattern>
+    </servlet-mapping>
+
+    <filter>
+        <filter-name>request_filter</filter-name>
+        <filter-class>ru.zapoebad.pwd.admin.RequestFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>request_filter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+
+    <servlet>
+        <servlet-name>jsp</servlet-name>
+        <servlet-class>org.apache.jasper.servlet.JspServlet</servlet-class>
+        <init-param>
+            <param-name>fork</param-name>
+            <param-value>false</param-value>
+        </init-param>
+        <init-param>
+            <param-name>xpoweredBy</param-name>
+            <param-value>false</param-value>
+        </init-param>
+        <init-param>
+            <param-name>compilerSourceVM</param-name>
+            <param-value>1.6</param-value>
+        </init-param>
+        <init-param>
+            <param-name>compilerTargetVM</param-name>
+            <param-value>1.6</param-value>
+        </init-param>
+        <init-param>
+            <param-name>trimSpaces</param-name>
+            <param-value>true</param-value>
+        </init-param>        
+        <load-on-startup>3</load-on-startup>
+    </servlet>
+
+</web-app>    
