@@ -73,7 +73,9 @@ $.ajax({
 
                 html += '<div class="preview">';
                 html += '<img src="' + value.avatarPath + '">';
+                html += '<a href="/person?id=' + value.id + '">';
                 html += value.lastName + ' ' + value.name;
+                html += '</a>';
                 html += '</div>\r\n';
 
             });
