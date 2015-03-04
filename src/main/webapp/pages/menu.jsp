@@ -14,8 +14,8 @@
     links.add("Люди,/people");
     links.add("Команды,/crewList");
     links.add("Места,/places");
-    //links.add("Проекты,/projectList");
-    //links.add("Публикации,/postList");
+    links.add("Проекты,/projectList");
+    links.add("Публикации,/postList");
 %>
 <table align="center">
 <tr>

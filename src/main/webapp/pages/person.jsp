@@ -18,7 +18,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Личность</title>
     <link rel="stylesheet" href="/css/style.css" type="text/css" media="screen" />
-    <script language="JavaScript" type="text/javascript" src="../js/jquery-1.11.2.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="../js/jquery-1.11.2.min.js" charset="utf-8"></script>
 </head>
 <body>
 
@@ -37,24 +37,26 @@
         Личность
         <br><br>
 
+        <input type="button" value="Редактировать" onClick="document.location='/editPerson?id=<%=userId%>'">
+
         <table>
         <tr>
             <td><div id="avatar-holder"></div></td>
-            <td>
-                <span>Имя</span><span id="full-name-holder"></span><br>
-                <span>Описание</span><span id="desc-holder"></span><br>
-                <span>Вконтакте</span><span id="vk-holder"></span><br>
-                <span id="text-holder"></span>
+            <td valign="top">
+                <table>
+                <tr><td>Имя</td><td><span id="full-name-holder"></span></td></tr>
+                <tr><td>Описание</td><td><span id="desc-holder"></span></td></tr>
+                <tr><td>Вконтакте</td><td><span id="vk-holder"></span></td></tr>
+                <tr><td rowspan="2"><span id="text-holder"></span></td></tr>
+                </table>
             </td>
         </tr>
         </table>
 
-
-
-
     </td>
     <td width="16.6%"><!-- right column -->
 
+        <jsp:include page="fakeLogin.jsp"></jsp:include>
 
     </td>
 </tr>
@@ -75,7 +77,7 @@
                 console.log(resp.errorMsg);
             } else {
                 var value = resp.result;
-
+                // HTML
                 $('#avatar-holder').html('<img src="' + value.avatarPath + '">');
                 $('#full-name-holder').html(value.name + ' ' + value.lastName);
                 $('#desc-holder').html(value.desc);

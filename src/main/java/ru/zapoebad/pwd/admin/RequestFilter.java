@@ -77,18 +77,21 @@ public class RequestFilter implements Filter {
 
         ///
 
-        if (links.get(path) != null) {
-            path = links.get(path);
-        } else {
-            path = links.get("/");
+        String realPath;
+
+        if (links.get(path) == null) {
+            path = "/";
         }
+        realPath = links.get(path);
+
+        ((HttpServletRequest) request).getSession().setAttribute("workingPage", path);
 
         if (((HttpServletRequest) request).getQueryString() != null) {
-            path += "?" + ((HttpServletRequest) request).getQueryString();
+            realPath += "?" + ((HttpServletRequest) request).getQueryString();
         }
 
-        dispatcher = request.getRequestDispatcher(path);
-        System.out.println("Normal work operation = " + path);
+        dispatcher = request.getRequestDispatcher(realPath);
+        System.out.println("Requested = " + path + ", working = " + realPath);
 
         if (dispatcher != null) {
             dispatcher.forward(request, response);
