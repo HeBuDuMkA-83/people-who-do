@@ -25,7 +25,7 @@
 
 <table width="100%" border="1">
 <tr>
-    <td width="16.6%"><!-- menu -->
+    <td width="16.6%" valign="top"><!-- menu -->
 
         <jsp:include page="menu.jsp"></jsp:include>
 
@@ -41,8 +41,9 @@
         <div id="people-holder"></div>
 
     </td>
-    <td width="16.6%"><!-- right column -->
+    <td width="16.6%" valign="top"><!-- right column -->
 
+        <jsp:include page="fakeLogin.jsp"></jsp:include>
 
     </td>
 </tr>

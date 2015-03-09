@@ -77,9 +77,25 @@ public class RequestFilter implements Filter {
 
         ///
 
+        // TODO как то не секурно
+        if (request.getParameter("logIn") != null) {
+            ((HttpServletRequest) request).getSession().setAttribute("loggedUserId", request.getParameter("logIn"));
+        }
+
+        // кое какая корявая проверка на валидность
+        boolean badRequest = false;
+        if (path != null && path.contains("editPerson")) {
+            String userId = request.getParameter("id");
+            String logged = (String)((HttpServletRequest) request).getSession().getAttribute("loggedUserId");
+            if (userId != null && !userId.equalsIgnoreCase(logged)) {
+                // TODO maybe need real redirect
+                badRequest = true;
+            }
+        }
+
         String realPath;
 
-        if (links.get(path) == null) {
+        if (links.get(path) == null || badRequest) {
             path = "/";
         }
         realPath = links.get(path);
