@@ -1,3 +1,6 @@
+<%@ page import="ru.zapoebad.pwd.objects.Crew" %>
+<%@ page import="ru.zapoebad.pwd.managers.CrewManager" %>
+<%@ page import="com.dart.webadmin.utils.HttpUtil" %>
 <%--
   Created by IntelliJ IDEA.
   User: DuMkA
@@ -7,8 +10,12 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    String crewId = request.getParameter("id");
+    Integer crewId = HttpUtil.getIntValue(request, "id");
     String loggedUserId = (String)request.getSession().getAttribute("loggedUserId");
+    Crew crew = null;
+    if (crewId != null) {
+        crew = CrewManager.getInstance().getCrew(crewId);
+    }
 %>
 <!DOCTYPE html>
 <html>
@@ -37,6 +44,13 @@
     <td valign="top"><!-- content -->
         Команда
         <br><br>
+<%
+    if (loggedUserId != null && crew != null && loggedUserId.equalsIgnoreCase(crew.getOwner()+"")) {
+%>
+<input type="button" value="Редактировать" onClick="document.location='/editCrew?id=<%=crewId%>'">
+<%
+    }
+%>
 
         <table>
             <tr>
@@ -45,6 +59,7 @@
                     <table>
                         <tr><td>Название</td><td><span id="full-name-holder"></span></td></tr>
                         <tr><td>Описание</td><td><span id="desc-holder"></span></td></tr>
+                        <tr><td>Основатель</td><td><span id="owner-holder"></span></td></tr>
                         <tr><td colspan="2"><span id="text-holder"></span></td></tr>
                     </table>
                 </td>
@@ -82,6 +97,7 @@
                 $('#avatar-holder').html('<img src="' + value.avatarPath + '">');
                 $('#full-name-holder').html(value.name);
                 $('#desc-holder').html(value.desc);
+                $('#owner-holder').html(value.owner);
                 $('#text-holder').html(value.text);
             }
         },

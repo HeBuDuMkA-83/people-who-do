@@ -118,7 +118,8 @@
                     //innertable
                     html += '<table>';
                     html += '<tr><td>Дата</td><td>' + value.date + '</td></tr>';
-                    html += '<tr><td>Название</td><td>' + value.name + '</td></tr>';
+                    html += '<tr><td>Название</td><td><a href="/event?id=' + value.id + '">' + value.name + '</a></td></tr>';
+                    html += '<tr><td>Организатор</td><td>' + value.owner + '</td></tr>';
                     html += '<tr><td>Описание</td><td>' + value.desc + '</td></tr>';
                     html += '<tr><td colspan="2">' + value.text + '</td></tr>';
                     html += '</table>';

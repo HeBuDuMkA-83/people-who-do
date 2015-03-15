@@ -31,11 +31,12 @@ public class RequestFilter implements Filter {
         links.put("/place", "/pages/place.jsp?");
         links.put("/editPlace", "/pages/editPlace.jsp?");
 
-        links.put("/person", "/pages/person.jsp?");
-        links.put("/crew", "/pages/crew.jsp?");
-        links.put("/crewList", "/pages/crewList.jsp?");
         links.put("/people", "/pages/people.jsp?");
+        links.put("/person", "/pages/person.jsp?");
         links.put("/editPerson", "/pages/editPerson.jsp?");
+
+        links.put("/crewList", "/pages/crewList.jsp?");
+        links.put("/crew", "/pages/crew.jsp?");
         links.put("/editCrew", "/pages/editCrew.jsp?");
 
         // ideas
