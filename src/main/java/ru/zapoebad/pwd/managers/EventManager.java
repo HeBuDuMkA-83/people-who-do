@@ -1,5 +1,6 @@
 package ru.zapoebad.pwd.managers;
 
+import com.dart.webadmin.logger.WebLogger;
 import ru.zapoebad.pwd.objects.Event;
 
 import java.util.ArrayList;
@@ -9,6 +10,8 @@ import java.util.List;
  * Created by DuMkA on 09.03.2015.
  */
 public class EventManager {
+
+    private static final WebLogger logger = new WebLogger(EventManager.class);
 
     private static volatile EventManager instance;
 

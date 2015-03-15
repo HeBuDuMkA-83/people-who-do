@@ -2,6 +2,8 @@ package ru.zapoebad.pwd.admin;
 
 import com.dart.webadmin.ajax.AnnotationEngine;
 import org.apache.log4j.Logger;
+import ru.zapoebad.pwd.managers.CrewManager;
+import ru.zapoebad.pwd.managers.EventManager;
 import ru.zapoebad.pwd.managers.PersonManager;
 
 import javax.servlet.ServletConfig;
@@ -67,7 +69,8 @@ public class ApplInitServlet extends HttpServlet {
             AnnotationEngine.scan("ru.zapoebad.pwd.ajax.controllers");
 
             PersonManager.getInstance();
-
+            CrewManager.getInstance();
+            EventManager.getInstance();
 
             logger.debug("service started");
 

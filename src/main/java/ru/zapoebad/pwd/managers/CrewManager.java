@@ -1,5 +1,6 @@
 package ru.zapoebad.pwd.managers;
 
+import com.dart.webadmin.logger.WebLogger;
 import ru.zapoebad.pwd.objects.Crew;
 import ru.zapoebad.pwd.objects.Person;
 
@@ -10,6 +11,8 @@ import java.util.List;
  * Created by Makerspace on 21.02.2015.
  */
 public class CrewManager {
+
+    private static final WebLogger logger = new WebLogger(CrewManager.class);
 
     private static volatile CrewManager instance;
 

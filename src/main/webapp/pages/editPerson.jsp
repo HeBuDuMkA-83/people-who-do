@@ -37,17 +37,18 @@
         Редактирование данных о себе
         <br><br>
 
-        <form action="" method="post" accept-charset="UTF-8" >
+        <form action="/ajax/savePerson" method="post" accept-charset="UTF-8" >
+            <input type="hidden" name="personId" value="<%=userId%>">
 
             <table>
                 <tr>
                     <td><div id="avatar-holder"></div></td>
                     <td valign="top">
                         <table>
-                            <tr><td>Имя</td><td><input type="text" id="full-name-holder"></td></tr>
-                            <tr><td>Описание</td><td><input type="text" id="desc-holder"></td></tr>
-                            <tr><td>Вконтакте</td><td><input type="text" id="vk-holder"></td></tr>
-                            <tr><td colspan="2"><textarea id="text-holder"></textarea></td></tr>
+                            <tr><td>Имя</td><td><input type="text" id="full-name-holder" name="name"></td></tr>
+                            <tr><td>Описание</td><td><input type="text" id="desc-holder" name="desc"></td></tr>
+                            <tr><td>Вконтакте</td><td><input type="text" id="vk-holder" name="vk"></td></tr>
+                            <tr><td colspan="2"><textarea id="text-holder" name="text"></textarea></td></tr>
                         </table>
                     </td>
                 </tr>
@@ -58,6 +59,7 @@
     </td>
     <td width="16.6%" valign="top"><!-- right column -->
 
+        <jsp:include page="fakeLogin.jsp"></jsp:include>
 
     </td>
 </tr>

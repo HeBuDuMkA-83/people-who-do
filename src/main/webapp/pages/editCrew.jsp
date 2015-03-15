@@ -38,17 +38,17 @@
         Редактирование команды
         <br><br>
 
-        <form action="" method="post" accept-charset="UTF-8" >
+        <form action="/ajax/saveCrew" method="post" accept-charset="UTF-8" >
+            <input type="hidden" name="crewId" value="<%=crewId%>">
 
             <table>
                 <tr>
                     <td><div id="avatar-holder"></div></td>
                     <td valign="top">
                         <table>
-                            <tr><td>Название</td><td><input type="text" id="full-name-holder"></td></tr>
-                            <tr><td>Описание</td><td><input type="text" id="desc-holder"></td></tr>
-                            <tr><td>Основатель</td><td><input type="text" id="owner-holder"></td></tr>
-                            <tr><td colspan="2"><input type="text" id="text-holder"></td></tr>
+                            <tr><td>Название</td><td><input type="text" id="name-holder" name="name"></td></tr>
+                            <tr><td>Описание</td><td><input type="text" id="desc-holder" name="desc"></td></tr>
+                            <tr><td colspan="2"><input type="text" id="text-holder" name="text"></td></tr>
                         </table>
                     </td>
                 </tr>
@@ -87,9 +87,8 @@
                 var value = resp.result;
                 // VAL
                 $('#avatar-holder').html('<img src="' + value.avatarPath + '">');
-                $('#full-name-holder').val(value.name);
+                $('#name-holder').val(value.name);
                 $('#desc-holder').val(value.desc);
-                $('#owner-holder').val(value.owner);
                 $('#text-holder').html(value.text);
             }
         },

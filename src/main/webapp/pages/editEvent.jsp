@@ -38,17 +38,18 @@
         Редактирование события
         <br><br>
 
-        <form action="" method="post" accept-charset="UTF-8" >
+        <form action="/ajax/saveEvent" method="post" accept-charset="UTF-8" >
+            <input type="hidden" name="eventId" value="<%=eventId%>">
             <table><tr>
                 <td><div id="avatar-holder"></div></td>
                 <td valign="top">
 
                     <!-- //innertable -->
                     <table>
-                        <tr><td>Дата</td><td><input type="text" id="date-holder"></td></tr>
-                        <tr><td>Название</td><td><input type="text" id="name-holder"></td></tr>
-                        <tr><td>Описание</td><td><input type="text" id="desc-holder"></td></tr>
-                        <tr><td colspan="2"><textarea id="text-holder"></textarea></td></tr>
+                        <tr><td>Дата</td><td><input type="text" id="date-holder" name="date"></td></tr>
+                        <tr><td>Название</td><td><input type="text" id="name-holder" name="name"></td></tr>
+                        <tr><td>Описание</td><td><input type="text" id="desc-holder" name="desc"></td></tr>
+                        <tr><td colspan="2"><textarea id="text-holder" name="text"></textarea></td></tr>
                     </table>
 
                 </td></tr>
