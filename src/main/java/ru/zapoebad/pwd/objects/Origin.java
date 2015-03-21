@@ -14,7 +14,7 @@ public class Origin {
     private String desc;
     private String text;
 
-    private String avatarPath;
+    protected String avatarPath = Constants.AVATAR_DUMMY;
 
     public int getId() {
         return id;

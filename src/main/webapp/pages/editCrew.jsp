@@ -35,11 +35,14 @@
 
     </td>
     <td valign="top"><!-- content -->
-        Редактирование команды
+<%
+    out.write((crewId != null ? "Редактирование команды" : "Создание новой команды"));
+%>
         <br><br>
 
-        <form action="/ajax/saveCrew" method="post" accept-charset="UTF-8" >
+        <form action="" method="post" accept-charset="UTF-8" >
             <input type="hidden" name="crewId" value="<%=crewId%>">
+            <input type="hidden" name="act" value="editCrew">
 
             <table>
                 <tr>

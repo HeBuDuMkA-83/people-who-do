@@ -19,11 +19,16 @@ public class ApplInitServlet extends HttpServlet {
     private static Logger logger = Logger.getLogger(ApplInitServlet.class);
 
     private static String applPath;
+    private static String dataPath;
     private static Properties properties;
     private static boolean local;
 
     public static String getApplPath() {
         return applPath;
+    }
+
+    public static String getDataPath() {
+        return dataPath;
     }
 
     public static String getSiteShotUrl() {
@@ -65,6 +70,11 @@ public class ApplInitServlet extends HttpServlet {
             logger.info(new String(tmpOut.toByteArray()));
 
             local = properties.getProperty("app.local", "false").equalsIgnoreCase("true") ;
+
+            dataPath = getProperties().getProperty("data.path", applPath + File.separator + "data");
+            if (!dataPath.endsWith(File.separator)) {
+                dataPath += File.separator;
+            }
 
             AnnotationEngine.scan("ru.zapoebad.pwd.ajax.controllers");
 

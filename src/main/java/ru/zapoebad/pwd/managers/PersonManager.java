@@ -1,10 +1,14 @@
 package ru.zapoebad.pwd.managers;
 
 import com.dart.webadmin.logger.WebLogger;
+import com.dart.webadmin.utils.HttpUtil;
 import com.dart.webadmin.utils.JsonUtil;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import ru.zapoebad.pwd.admin.ApplInitServlet;
 import ru.zapoebad.pwd.objects.Person;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.OutputStreamWriter;
@@ -44,6 +48,26 @@ public class PersonManager {
     private void init() {
         //TODO доставать из бд
 
+        File dir = new File(ApplInitServlet.getDataPath() + "person");
+        if (dir.exists()) {
+            try {
+                ObjectMapper objectMapper = new ObjectMapper();
+
+                for (File file : dir.listFiles()) {
+                    try {
+                        Person person = objectMapper.readValue(file, Person.class);
+                        people.add(person);
+                    } catch (Exception e) {
+                        logger.error(e);
+                    }
+                }
+            } catch (Exception e) {
+                logger.error(e);
+            }
+        }
+        logger.debug("Loaded persons = " + people.size());
+
+        /*
         Person p = new Person(1, "Дмитрий", "Плюснин", "автор проекта", "тут текст", "/id1195447");
         people.add(p);
         p = new Person(2, "Наталья", "Плюснина", "управление делами проекта", "и тут текст", "/churyukaeva");
@@ -56,6 +80,7 @@ public class PersonManager {
         people.add(p);
         p = new Person(6, "Семен", "Тараканов", "мейкер", "текст", "/");
         people.add(p);
+        */
 
     }
 
@@ -80,7 +105,7 @@ public class PersonManager {
             if (pers.getId() > max)
                 max = pers.getId();
         }
-        return max;
+        return max + 1;
     }
 
     public void savePerson(Person person) {
@@ -100,7 +125,7 @@ public class PersonManager {
 
     private void savePersonToFile(Person person) {
 
-        File file = new File(ApplInitServlet.getApplPath() + "data" + File.separator + "person" + File.separator + "person" + person.getId() + ".json");
+        File file = new File(ApplInitServlet.getDataPath() + "person" + File.separator + "person" + person.getId() + ".json");
         if (!file.getParentFile().exists()) {
             file.getParentFile().mkdirs();
         }
@@ -108,13 +133,51 @@ public class PersonManager {
         try {
             file.createNewFile();
 
-            FileWriter writer = new FileWriter(file);
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
 
-            JsonUtil.encode(person, writer);
-            writer.flush();
+            objectMapper.writeValue(file, person);
 
         } catch (Exception e) {
             logger.error(e);
         }
+    }
+
+    public void processEdit(HttpServletRequest request) {
+        int personId = HttpUtil.getIntValue(request, "personId", -1);
+
+        Person person = PersonManager.getInstance().getPerson(personId);
+
+        if (person != null) {
+
+            String loggedUserId = (String)request.getSession().getAttribute("loggedUserId");
+
+            if (loggedUserId == null || !loggedUserId.equalsIgnoreCase(personId + "")) {
+
+                // не залогинен или залогинен но не совпадает с редактируемым
+                return;
+            }
+
+        } else {
+            // add new
+            personId = PersonManager.getInstance().getNewId();
+
+            // logging new user
+            ((HttpServletRequest) request).getSession().setAttribute("loggedUserId", personId + "");
+
+            person = new Person();
+            person.setId(personId);
+        }
+
+        // saving
+
+        person.setName(HttpUtil.getValue(request, "name", ""));
+        person.setLastName(HttpUtil.getValue(request, "lastName", ""));
+        person.setNick(HttpUtil.getValue(request, "nick", ""));
+        person.setDesc(HttpUtil.getValue(request, "desc", ""));
+        person.setVkAccount(HttpUtil.getValue(request, "vk", ""));
+        person.setText(HttpUtil.getValue(request, "text", ""));
+
+        PersonManager.getInstance().savePerson(person);
     }
 }

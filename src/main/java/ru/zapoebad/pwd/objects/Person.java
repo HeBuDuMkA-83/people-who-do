@@ -62,9 +62,13 @@ public class Person extends Origin {
     }
 
     public String getAvatarPath() {
-        if (StrUtil.isEmpty(getAvatarPath())) {
+        if (StrUtil.isEmpty(avatarPath)) {
             return Constants.AVATAR_DUMMY;
         }
-        return getAvatarPath();
+        return avatarPath;
+    }
+
+    public String getFullName() {
+        return lastName + " " + getName();
     }
 }

@@ -34,18 +34,23 @@
 
     </td>
     <td valign="top"><!-- content -->
-        Редактирование данных о себе
+<%
+    out.write((userId != null ? "Редактирование данных о себе" : "Создание нового пользователя"));
+%>
         <br><br>
 
-        <form action="/ajax/savePerson" method="post" accept-charset="UTF-8" >
+        <form action="" method="post" accept-charset="UTF-8" >
             <input type="hidden" name="personId" value="<%=userId%>">
+            <input type="hidden" name="act" value="editPerson">
 
             <table>
                 <tr>
                     <td><div id="avatar-holder"></div></td>
                     <td valign="top">
                         <table>
-                            <tr><td>Имя</td><td><input type="text" id="full-name-holder" name="name"></td></tr>
+                            <tr><td>Имя</td><td><input type="text" id="name-holder" name="name"></td></tr>
+                            <tr><td>Фамилия</td><td><input type="text" id="last-name-holder" name="lastName"></td></tr>
+                            <tr><td>Ник</td><td><input type="text" id="nick-name-holder" name="nick"></td></tr>
                             <tr><td>Описание</td><td><input type="text" id="desc-holder" name="desc"></td></tr>
                             <tr><td>Вконтакте</td><td><input type="text" id="vk-holder" name="vk"></td></tr>
                             <tr><td colspan="2"><textarea id="text-holder" name="text"></textarea></td></tr>
@@ -82,7 +87,9 @@
                 var value = resp.result;
                 // VAL
                 $('#avatar-holder').html('<img src="' + value.avatarPath + '">');
-                $('#full-name-holder').val(value.name + ' ' + value.lastName);
+                $('#name-holder').val(value.name);
+                $('#last-name-holder').val(value.lastName);
+                $('#nick-name-holder').val(value.nick);
                 $('#desc-holder').val(value.desc);
                 $('#vk-holder').val(value.vkAccount);
                 $('#text-holder').html(value.text);

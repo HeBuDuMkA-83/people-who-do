@@ -35,11 +35,15 @@
 
     </td>
     <td valign="top"><!-- content -->
-        Редактирование события
+<%
+    out.write((eventId != null ? "Редактирование события" : "Создание нового события"));
+%>
         <br><br>
 
-        <form action="/ajax/saveEvent" method="post" accept-charset="UTF-8" >
+        <form action="" method="post" accept-charset="UTF-8" >
             <input type="hidden" name="eventId" value="<%=eventId%>">
+            <input type="hidden" name="act" value="editEvent">
+
             <table><tr>
                 <td><div id="avatar-holder"></div></td>
                 <td valign="top">

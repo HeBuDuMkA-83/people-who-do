@@ -1,5 +1,9 @@
 package ru.zapoebad.pwd.admin;
 
+import ru.zapoebad.pwd.managers.CrewManager;
+import ru.zapoebad.pwd.managers.EventManager;
+import ru.zapoebad.pwd.managers.PersonManager;
+
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,22 +26,22 @@ public class RequestFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 
-        links.put("/", "/pages/events.jsp?");
-        links.put("/events", "/pages/events.jsp?");
-        links.put("/event", "/pages/event.jsp?");
-        links.put("/editEvent", "/pages/editEvent.jsp?");
+        links.put("/", "/pages/events.jsp");
+        links.put("/events", "/pages/events.jsp");
+        links.put("/event", "/pages/event.jsp");
+        links.put("/editEvent", "/pages/editEvent.jsp");
 
-        links.put("/places", "/pages/places.jsp?");
-        links.put("/place", "/pages/place.jsp?");
-        links.put("/editPlace", "/pages/editPlace.jsp?");
+        links.put("/places", "/pages/places.jsp");
+        links.put("/place", "/pages/place.jsp");
+        links.put("/editPlace", "/pages/editPlace.jsp");
 
-        links.put("/people", "/pages/people.jsp?");
-        links.put("/person", "/pages/person.jsp?");
-        links.put("/editPerson", "/pages/editPerson.jsp?");
+        links.put("/people", "/pages/people.jsp");
+        links.put("/person", "/pages/person.jsp");
+        links.put("/editPerson", "/pages/editPerson.jsp");
 
-        links.put("/crewList", "/pages/crewList.jsp?");
-        links.put("/crew", "/pages/crew.jsp?");
-        links.put("/editCrew", "/pages/editCrew.jsp?");
+        links.put("/crewList", "/pages/crewList.jsp");
+        links.put("/crew", "/pages/crew.jsp");
+        links.put("/editCrew", "/pages/editCrew.jsp");
 
         // ideas
         // searching
@@ -93,6 +97,20 @@ public class RequestFilter implements Filter {
                 badRequest = true;
             }
         }
+
+        String act = request.getParameter("act");
+        if (act != null) {
+            if (act.equalsIgnoreCase("editPerson")) {
+                PersonManager.getInstance().processEdit(httpRequest);
+            }
+            if (act.equalsIgnoreCase("editEvent")) {
+                EventManager.getInstance().processEdit(httpRequest);
+            }
+            if (act.equalsIgnoreCase("editCrew")) {
+                CrewManager.getInstance().processEdit(httpRequest);
+            }
+        }
+
 
         String realPath;
 

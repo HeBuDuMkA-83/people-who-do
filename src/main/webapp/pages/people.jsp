@@ -56,15 +56,6 @@ $.ajax({
     dataType: "json",
     async: true,
     cache: false,
-    /*data: {
-        mrf: mrf,
-        region: region,
-        city: city,
-        ctype: ctype,
-        city_lvl: city_lvl,
-        from: from,
-        to: to
-    },*/
     success: function (resp) {
         if (resp.isError != 0) {
             console.log(resp.errorMsg);
