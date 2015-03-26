@@ -27,14 +27,14 @@
 
 </style>
 
-<table width="100%" border="1">
+<table width="100%" height="2000px">
 <tr>
-    <td width="16.6%" valign="top"><!-- menu -->
+    <td width="16.6%" valign="top" class="left-side"><!-- menu -->
 
         <jsp:include page="menu.jsp"></jsp:include>
 
     </td>
-    <td valign="top"><!-- content -->
+    <td valign="top" class="center-side"><!-- content -->
         Личность
         <br><br>
 <%
@@ -62,7 +62,7 @@
         <div id="crew-list-holder"></div>
 
     </td>
-    <td width="16.6%" valign="top"><!-- right column -->
+    <td width="16.6%" valign="top" class="right-side"><!-- right column -->
 
         <jsp:include page="fakeLogin.jsp"></jsp:include>
 

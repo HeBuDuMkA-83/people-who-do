@@ -14,13 +14,21 @@
     String loggedUserId = (String)request.getSession().getAttribute("loggedUserId");
     Person logged = null;
     if (loggedUserId != null) {
-        logged = PersonManager.getInstance().getPerson(Integer.parseInt(loggedUserId));
+        try {
+            logged = PersonManager.getInstance().getPerson(Integer.parseInt(loggedUserId));
+        } catch (Exception e) {}
     }
+
+    /*java.lang.NumberFormatException: For input string: ""
+	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
+	at java.lang.Integer.parseInt(Integer.java:592)
+	at java.lang.Integer.parseInt(Integer.java:615)
+	at org.apache.jsp.pages.fakeLogin_jsp._jspService(fakeLogin_jsp.java:70)*/
 
     String userId = request.getParameter("id");
 %>
 workingPage = <%=workingPage%><br><br>
-loggedUserId = <%=loggedUserId%><%=(logged != null?(", user " + logged.getFullName()):"")%><br>
+loggedUserId = <%=loggedUserId%><%=(logged != null?(", user " + PersonManager.getInstance().getFullName(logged)):"")%><br>
 <%
     if (StrUtil.isEmpty(loggedUserId)) {
         if ("/person".equalsIgnoreCase(workingPage)) {

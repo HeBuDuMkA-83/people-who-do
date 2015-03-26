@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "E:\IdeaSvn\banner-web\src\resource_local\WEB-INF\classes\log4j.dtd">
+<!--
+  Log4j Configuration
+-->
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" debug="false">
+
+    <appender name="pwd" class="org.apache.log4j.DailyRollingFileAppender">
+        <errorHandler class="org.apache.log4j.helpers.OnlyOnceErrorHandler"/>
+        <param name="Threshold" value="DEBUG"/>
+        <param name="File" value="${catalina.base}/logs/pwd_dev.log"/>
+        <param name="Append" value="true"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{ABSOLUTE} %-5p [%t] [%c] %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="pwd_error" class="org.apache.log4j.RollingFileAppender">
+        <errorHandler class="org.apache.log4j.helpers.OnlyOnceErrorHandler"/>
+        <param name="Threshold" value="ERROR"/>
+        <param name="MaxFileSize" value="300MB"/>
+        <param name="MaxBackupIndex" value="10"/>
+        <param name="File" value="${catalina.base}/logs/pwd_dev.err"/>
+        <param name="Append" value="true"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{dd-MM-yyyy HH:mm:ss,SSS} %-5p [%c] %m%n"/>
+        </layout>
+    </appender>
+
+    <!-- Console Appender -->
+    <appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+        <errorHandler class="org.apache.log4j.helpers.OnlyOnceErrorHandler"/>
+        <param name="Target" value="System.out"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{dd-MM-yyyy HH:mm:ss,SSS} %-5p [%c] %m%n"/>
+        </layout>
+    </appender>
+
+    <!-- Root -->
+    <root>
+        <priority value="DEBUG"/>
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="pwd"/>
+        <appender-ref ref="pwd_error"/>
+    </root>
+
+</log4j:configuration>

@@ -123,6 +123,11 @@ public class PersonManager {
         savePersonToFile(person);
     }
 
+    /*
+23-03-2015 21:03:20,715 ERROR [ru.zapoebad.pwd.managers.PersonManager] com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException: Unrecognized field "fullName" (class ru.zapoebad.pwd.objects.Person), not marked as ignorable (9 known properties: "middleName", "lastName", "nick", "name", "text", "desc", "vkAccount", "id", "avatarPath"])
+ at [Source: /opt/tomcat/webapps/ROOT/data/person/person1.json; line: 11, column: 17] (through reference chain: ru.zapoebad.pwd.objects.Person["fullName"])
+    * */
+
     private void savePersonToFile(Person person) {
 
         File file = new File(ApplInitServlet.getDataPath() + "person" + File.separator + "person" + person.getId() + ".json");
@@ -179,5 +184,9 @@ public class PersonManager {
         person.setText(HttpUtil.getValue(request, "text", ""));
 
         PersonManager.getInstance().savePerson(person);
+    }
+
+    public String getFullName(Person p) {
+        return p.getLastName() + " " + p.getName();
     }
 }

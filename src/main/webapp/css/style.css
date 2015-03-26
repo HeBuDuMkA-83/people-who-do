@@ -6,3 +6,21 @@
     width: 100px;
     height: 100px;
 }
+
+.left-side {
+    background-color: #494d4e;
+    color: #fff;
+}
+
+.left-side a {
+    color: #fff;
+}
+
+.right-side {
+    background-color: #494d4e;
+    color: #fff;
+}
+
+.right-side a {
+    color: #fff;
+}

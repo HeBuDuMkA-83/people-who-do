@@ -67,8 +67,4 @@ public class Person extends Origin {
         }
         return avatarPath;
     }
-
-    public String getFullName() {
-        return lastName + " " + getName();
-    }
 }
